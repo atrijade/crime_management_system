@@ -5,95 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        .search-bar,
-        .filter-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        input,
-        select,
-        button {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .case-box {
-            background: #fff;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 5px solid #007bff;
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        .case-box h3 {
-            margin: 0;
-            color: #007bff;
-        }
-
-        .case-box p {
-            margin: 5px 0;
-            color: #555;
-        }
-
-        #logoutBtn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            float: right;
-            margin-top: -10px;
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 
-<body>
+<body class="bg-gray-900 text-center text-white flex items-center justify-center min-h-screen">
 
-    <div class="container">
-        <button id="logoutBtn" onclick="logout()">Logout</button>
-        <h2>Case Management</h2>
+    <div class="container mx-auto p-6 rounded-lg shadow-lg max-w-2xl glass relative">
+        <button id="logoutBtn" onclick="logout()" class="bg-red-500 text-white border-none py-2 px-4 cursor-pointer absolute top-4 right-4">Logout</button>
+        <h2 class="text-gray-200">Case Management</h2>
 
-        <div class="search-bar">
-            <input type="text" id="searchCaseId" placeholder="Search by Case ID">
-            <button onclick="searchCase()">Search</button>
+        <div class="search-bar flex justify-between mb-5">
+            <input type="text" id="searchCaseId" placeholder="Search by Case ID" class="p-2 m-1 border border-gray-300 rounded bg-gray-800 text-white">
+            <button onclick="searchCase()" class="p-2 m-1 border border-gray-300 rounded bg-gray-800 text-white">Search</button>
         </div>
 
-        <div class="filter-bar">
-            <select id="statusFilter">
+        <div class="filter-bar flex justify-between mb-5">
+            <select id="statusFilter" class="p-2 m-1 border border-gray-300 rounded bg-gray-800 text-white">
                 <option value="">Filter by Status</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
                 <option value="Pending">Pending</option>
             </select>
-            <button onclick="filterCases()">Filter</button>
+            <button onclick="filterCases()" class="p-2 m-1 border border-gray-300 rounded bg-gray-800 text-white">Filter</button>
         </div>
 
         <div id="caseList">
@@ -167,13 +107,13 @@
 
             cases.forEach(c => {
                 let caseBox = document.createElement('div');
-                caseBox.className = 'case-box';
+                caseBox.className = 'case-box bg-white p-4 mb-2 border-l-4 border-blue-500 rounded shadow-sm text-left glass';
                 caseBox.innerHTML = `
-                    <h3>Case ID: ${c.caseID}</h3>
-                    <p><strong>Status:</strong> ${c.status}</p>
-                    <p><strong>Verdict:</strong> ${c.verdict}</p>
-                    <p><strong>Criminal ID:</strong> ${c.criminalID}</p>
-                    <p><strong>Officer Handling:</strong> ${c.officerName || "Not Assigned"}</p>
+                    <h3 class="text-blue-500">Case ID: ${c.caseID}</h3>
+                    <p class="text-gray-600"><strong>Status:</strong> ${c.status}</p>
+                    <p class="text-gray-600"><strong>Verdict:</strong> ${c.verdict}</p>
+                    <p class="text-gray-600"><strong>Criminal ID:</strong> ${c.criminalID}</p>
+                    <p class="text-gray-600"><strong>Officer Handling:</strong> ${c.officerName || "Not Assigned"}</p>
                 `;
                 caseList.appendChild(caseBox);
             });
